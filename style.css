@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    font-family: 'Inter', sans-serif;
+}
+/**
+* ! styles for Nav
+**/
+
+
+li {
+    list-style: none;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+/**
+* ? STYLES FOR NAV-BAR
+**/
+.nav-bar {
+    min-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+/**
+* ? STYLES FOR NAV-MENU
+**/
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-family: 'Prata', serif;
+}
+
+.nav-link {
+    transition: 0.7s ease;
+}
+
+.nav-link:hover {
+    color: dodgerblue;
+}
+
+.header-btn {
+    border: none;
+    background: rgb(255, 255, 85);
+    height: 40px;
+    width: 100px;
+}
+
+/* style to hide the hamburger menu on desktop design */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+}
+
+
+/* STYLES FOR CREATING HAMBURGER MENU */
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background: #fff;
+}
+
+/**
+* ! STYLES FOR DISPLAYING HAMGURGER MENU ON MOBILE AND TABLET
+**/
+@media screen and (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+    }
+    /*  X HAMBURGER WHEN ACTIVE */
+    .hamburger-menu.active .bar:nth-child(2) {  
+        opacity: 0;
+    }
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        gap: 0;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+    }
+    .nav-item {
+        margin: 16px 0;
+    }
+    .nav-menu.active {
+        left: 0;
+        background: #000;
+    }
+}
+
+/**
+* ! STYLES FOR SECTION
+**/
+.section-header {
+    min-height: 200px;
+    padding: 40px 40px;
+}
+
+.section-title {
+    font-size: 3rem;
+    color: #fff;
+    font-family: 'Prata', serif;
+}
+
+.section-paragraph {
+    font-size: 1rem;
+    width: 500px;
+    color: rgb(167, 165, 165);
+}
+
+/* STYLES FOR COMPANY SPONSORS LOGO */
+
+.sponsors {
+    min-height: 40px;
+    padding: 20px 40px;
+}
+
+.sponsors-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sponsors li {
+    list-style: none;
+}
+
+.sponsors a {
+    text-decoration: none;
+}
+
+
+.product-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 40px;
+    gap: 10px;
+}
+
+.product-stats {
+    width: 87%;
+    color: #fff;
+}
+
+.product-title {
+    font-size: 2.5rem;
+    font-weight: 200;
+    font-family: 'Prata', serif;
+}
+
+.product-text {
+    font-size: 1rem;
+    font-weight: 100;
+}
+
+.section-testimony {
+    background: rgb(43, 53, 63);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 40px;
+}
+
+.testimony-title {
+    font-size: 2rem;
+    font-weight: 200;
+    font-family: 'Prata', serif;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.testimony-part1 {
+    height: 250px;
+    width: 55%;
+}
+
+p {
+    font-size: 1rem;
+    color: rgb(167, 165, 165);
+}
+
+span {
+    color: #fff;
+}
+
+.section-footer {
+    padding: 40px 40px;
+    color: #fff;
+}
+
+.footer-question {
+    margin-bottom: 10px;
+    font-family: 'Prata', serif;
+}
+
+.contact-info {
+    width: 34%;
+}
+
+.footer-btn {
+    background: rgb(255, 255, 85);
+    border: none;
+    width: 100px;
+    height: 40px;
+}
+
+.footer-nav {
+    min-height: 40px;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(43, 53, 63);
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
