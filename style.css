@@ -61,6 +61,12 @@ a {
     background: rgb(255, 255, 85);
     height: 40px;
     width: 100px;
+    transition: .5s ease;
+}
+
+.header-btn:hover {
+    color: #000;
+    background: rgb(151, 118, 8);
 }
 
 /* style to hide the hamburger menu on desktop design */
