@@ -22,6 +22,28 @@ li {
 a {
     color: #fff;
     text-decoration: none;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+a:after {
+    content: "";
+    position: absolute;
+    background: #50E3C2;
+    height: 1px;
+    width: 0;
+    left: 0;
+    bottom: -5px;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: #50E3C2;
+}
+
+a:hover:after {
+    width: 100%;
 }
 /**
 * ? STYLES FOR NAV-BAR
@@ -32,6 +54,7 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
+    margin: auto;
 }
 /**
 * ? STYLES FOR NAV-MENU
@@ -50,10 +73,6 @@ a {
 
 .nav-link {
     transition: 0.7s ease;
-}
-
-.nav-link:hover {
-    color: dodgerblue;
 }
 
 .header-btn {
