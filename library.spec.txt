@@ -1,0 +1,25 @@
+Functional Requirements
+    - User Management:
+        - User registration and authentication
+        - Role-based access control (RBAC) e.g librarian, User
+    - Book Management:
+        - Add new books to the library
+        - Update existing book details e.g title, author, genre, quantity
+        - Remove books from the library
+    - Search and Filtering:
+        - Search for books by title, author, or genre
+        - Filter books by availability e.g available for borrowing
+    - Borrowing and returning books:
+        - Users can borrow books from the library- Users can return books to the library
+
+Non-Functional Requirements
+- Containerize the application ✅
+- Response time should be below 50ms
+- High availability upto 99.999
+- Error handling, ensure to respond with the accurate error message 
+- Security, ensure all protected routes are guarded 
+- A well organized code-base that is easy to understand and modify 
+- API documentation for the endpoint usability 
+- Best RESTful API design practices 
+- Scalability, registered users, books and traffic
+- Observability: e.g morgan 
