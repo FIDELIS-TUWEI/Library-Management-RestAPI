@@ -1,0 +1,9 @@
+- As a user, I want to be able to register for an account so that I can access the library's services.
+- As a user, I want to be able to log in securely with my registered credentials.
+- As a user, I want to be able to search for books by the title, author, or genre to find specific books of interest
+- As a user, I want to be able to filter books by availability to see which books are currently available for borrowing.
+- As a user, I want to be able to borrow books from the library if they are available.
+- As a user, I want to be able to return books to the library after borrowing them.
+- As a librarian, I want to be able to add new books to the library's collection.
+- As a librarian, I want to be able to update existing book details (such as title, author, genre, and quantity) to keep the library's inventory up to date.
+- As a librarian, I want to be able to remove books from the library if necessary
