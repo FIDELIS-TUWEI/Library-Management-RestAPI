@@ -9,7 +9,7 @@ const User = require("../models/user.model");
 const signup = asyncHandler (async (req, res) => {
     try {
         // check and ensure user is unique
-        const { email } = req.body;
+        const { firstName, lastName, email, phone, password } = req.body;
 
         const duplicateUser = await User.findOne({ email });
         if (duplicateUser) {
@@ -22,9 +22,9 @@ const signup = asyncHandler (async (req, res) => {
         // create new user object
         const user = new User({
             email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            phone: req.body.phone,
+            firstName,
+            lastName,
+            phone,
             password: hashedPassword
         });
 
@@ -40,7 +40,7 @@ const signup = asyncHandler (async (req, res) => {
                 email: user.email
             }
         });
-        
+
     } catch (error) {
         logger.error("Error in signup controller", error);
         return res.status(500).json({ status: "error", message: error.message || "Internal Server Error" });
