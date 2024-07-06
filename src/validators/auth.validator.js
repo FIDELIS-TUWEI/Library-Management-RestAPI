@@ -29,8 +29,6 @@ const validator = (validationSchema) => async (req, res, next) => {
         .required(),
     phone: joi.number().required(),
     password: joi.string().required(),
-    dateOfBirth: joi.date().optional(),
-    profilePic: joi.string().optional(),
     books: joi.array().items(joi.string().regex(/^[0-9a-fA-F]{24}$/)).optional(),
   });
 
