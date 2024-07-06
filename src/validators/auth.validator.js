@@ -21,7 +21,7 @@ const validator = (validationSchema) => async (req, res, next) => {
     }
   };
   
-  const schema = joi.object({
+  const signupSchema = joi.object({
     firstName: joi.string().min(3).max(20).required(),
     lastName: joi.string().min(3).max(20).required(),
     email: joi.string()
@@ -33,7 +33,15 @@ const validator = (validationSchema) => async (req, res, next) => {
     profilePic: joi.string().optional(),
     books: joi.array().items(joi.string().regex(/^[0-9a-fA-F]{24}$/)).optional(),
   });
+
+  const loginSchema = joi.object({
+    email: joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+        .required(),
+    password: joi.string().required()
+});
   
-  schema.validate({});
+  const validateSignup = validator(signupSchema);
+  const validateLogin = validator(loginSchema);
   
-  module.exports = { validateUserInput: validator(schema)};
+  module.exports = { validateSignup, validateLogin };
