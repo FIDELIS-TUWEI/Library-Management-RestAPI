@@ -12,6 +12,10 @@ const borrowSchema = new mongoose.Schema({
         ref: "Book",
         required: true
     },
+    durationOfBorrow: {
+        type: String,
+        required: true
+    },
     borrowDate: {
         type: Date,
         default: Date.now(),
