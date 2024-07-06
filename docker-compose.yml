@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
@@ -11,9 +13,9 @@ services:
     depends_on:
       - mongo
     volumes:
-      - .:/src/app
-      - /src/app/node_modules
-
+      - ./src:/app/src
+      - ./.env:/app/.env
+    
   mongo:
     image: mongo:latest
     ports:
