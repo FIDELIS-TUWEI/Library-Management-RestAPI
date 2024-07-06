@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", protectMe, checkRole(["Admin"]), getUsers);
 router.get("/:userId", protectMe, getUserById);
-router.put("/:userId", protectMe, updateUser);
+router.put("/:userId", protectMe, checkRole(['Admin', 'User']), updateUser);
 router.put("/:id", protectMe, changePassword);
 
 module.exports = router;
