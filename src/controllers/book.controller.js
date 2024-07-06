@@ -39,7 +39,7 @@ const addBook = asyncHandler (async (req, res) => {
 // @desc get books
 const getBooks = asyncHandler (async (req, res) => {
     try {
-        const { title, author, genre, available } = req.query;
+        const { title, author, genre, available, random } = req.query;
 
         let filter = {};
 
@@ -58,6 +58,17 @@ const getBooks = asyncHandler (async (req, res) => {
         if (available) {
             filter.available = available === "true";
         };
+
+        if (random) {
+            const count = await Books.countDocuments(filter);
+            const randomIndex = Math.floor(Math.random() * count);
+            const randomBook = await Books.findOne(filter).skip(randomIndex);
+            return res.status(200).json({
+                status: "success",
+                message: "Fetched Random Books successfully",
+                data: randomBook
+            });
+        }
 
         const books = await Books.find(filter);
 
