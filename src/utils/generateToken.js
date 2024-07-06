@@ -7,7 +7,7 @@ const generateTokenAsCookie = (userId, res) => {
     });
 
     res.cookie("jwt", token, {
-        maxAge: 15 * 24 * 60 * 60 * 1000, // MS
+        maxAge: 24 * 24 * 60 * 60 * 1000, // MS
         httpOnly: true, // prevent XSS attackscross-site scripting attacks
         sameSite: "strict", // CSRF attacks cross-site request forgery attacks
         secure: config.NODE_ENV !== 'development' 

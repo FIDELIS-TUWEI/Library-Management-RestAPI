@@ -1,6 +1,6 @@
 Functional Requirements
     - User Management:
-        - User registration and authentication
+        - User registration ✅ and authentication ✅
         - Role-based access control (RBAC) e.g librarian, User
     - Book Management:
         - Add new books to the library

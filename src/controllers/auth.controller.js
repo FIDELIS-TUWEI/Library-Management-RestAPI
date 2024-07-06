@@ -88,6 +88,37 @@ const login = asyncHandler (async (req, res) => {
     }
 });
 
+// Logout user
+// @desc
+// @Access /auth/logout
+const logout = asyncHandler (async (req, res) => {
+    try {
+        res.cookie("jwt", "", {maxAge: 0});
+        res.status(200).json({ status: "success", message: "Logged out successfully" });
+    } catch (error) {
+        logger.error("Error in logout controller", error);
+        return res.status(500).json({ status: "error", message: error.message || "Internal Server Error" });
+    }
+});
+
+// Get user
+// @desc
+// @Access /auth/getMe
+const getMe = asyncHandler (async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select("-password");
+
+        res.status(200).json({ 
+            status: "success",
+            message: "User fetched successfully", 
+            data: user 
+        });
+    } catch (error) {
+        logger.error("Error in getMe controller", error);
+        return res.status(500).json({ status: "error", message: error.message || "Internal Server Error" });
+    }
+});
+
 module.exports = {
-    signup, login
+    signup, login, logout, getMe
 };
