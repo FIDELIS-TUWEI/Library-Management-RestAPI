@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
-const Borrow = require("../models/borrow.model");
 const Book = require("../models/book.model");
 const logger = require("../utils/logger");
+const User = require("../models/user.model");
 
 // logic to calculate return date
 const calculateReturnDate = (borrowDate, durationOfBorrow) => {
@@ -11,74 +11,84 @@ const calculateReturnDate = (borrowDate, durationOfBorrow) => {
     return returnDate;
 }
 
-// @desc borrow book
-const borrowBook = asyncHandler (async (req, res) => {
-    try {
-        const { bookId } = req.params;
-        const book = await Book.findById(bookId).populate("title")
+// Borrow a book
+// @desc Borrow a book
+// @route POST /books/:bookId/borrow
+// @access Private (authenticated users only)
+const borrowBook = asyncHandler(async (req, res) => {
+    const { bookId } = req.params;
+    const userId = req.user._id;
 
-        if (!book || book.quantity <= 0) {
-            return res.status(400).json({ status: "error", message: `Book with title: ${book.title} is not available at the moment` });
-        };
+    // Check if the book exists
+    const book = await Book.findById(bookId);
+    if (!book) {
+        return res.status(404).json({ status: 'error', message: 'Book not found' });
+    }
 
-        const { durationOfBorrow } = req.body;
+    // Check if the book is available
+    if (!book.available) {
+        return res.status(400).json({ status: 'error', message: 'Book is not available for borrowing' });
+    }
 
-        if (!durationOfBorrow) {
-            return res.status(400).json({ status: "error", message: "Duration of borrow is required" });
+    // Update book availability and user's borrowedBooks
+    book.available = false;
+    await book.save();
+
+    const user = await User.findById(userId);
+    user.borrowedBooks.push(book);
+    await user.save();
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Book borrowed successfully',
+        data: {
+            book,
+            user: {
+                _id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email
+            }
         }
+    });
+});
+// Return a borrowed book
+// @desc Return a book
+// @route PUT /books/:bookId/return
+// @access Private (authenticated users only)
+const returnBook = asyncHandler(async (req, res) => {
+    const { bookId } = req.params;
+    const userId = req.user._id;
 
-        const borrow = new Borrow({ user: req.user._id, book: bookId, durationOfBorrow, returnDate: calculateReturnDate(new Date(), durationOfBorrow) });
-        await borrow.save();
-
-        book.quantity -= 1;
-        book.available = book.quantity >= 0;
-
-        await book.save();
-
-        res.status(200).json({
-            status: "success",
-            message: `Book with ID: ${book.title} borrowed successfully. Enjoy reading!`,
-            data: borrow
-        });
-
-    } catch (error) {
-        logger.error("Error on borrowBook controller", error);
-        return res.status(500).json({ status: "error", message: error.message || "Internal Server Error" });
+    // Check if the book exists and is borrowed by the user
+    const book = await Book.findById(bookId);
+    if (!book || book.available) {
+        return res.status(404).json({ status: 'error', message: 'Book not found or not borrowed by the user' });
     }
+
+    // Update book availability and user's borrowedBooks
+    book.available = true;
+    await book.save();
+
+    const user = await User.findById(userId);
+    user.borrowedBooks = user.borrowedBooks.filter(b => b.toString() !== bookId);
+    await user.save();
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Book returned successfully',
+        data: {
+            book,
+            user: {
+                _id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email
+            }
+        }
+    });
 });
 
-// @desc return book
-const returnBook = asyncHandler (async (req, res) => {
-    try {
-        const { bookId } = req.params;
-        const borrow = await Book.findOne({ user: req.user._id, book: bookId, returnDate: null });
-
-        if (!borrow) {
-            return res.status(400).json({
-                status: "error",
-                message: "Your borrow record can't be found."
-            });
-        };
-
-        borrow.returnDate = new Date();
-        await borrow.save();
-
-        const book = await Book.findById(bookId);
-        book.quantity += 1;
-        book.available = true;
-        await book.save();
-
-        res.status(200).json({
-            status: "success",
-            message: `The book with title: ${book.title} has successfully been returned to our library. Welcome again!`,
-            data: borrow,
-        });
-
-    } catch (error) {
-        logger.error("Error on returnBook controller", error);
-        return res.status(500).json({ status: "error", message: error.message || "Internal Server Error" });
-    }
-});
 
 module.exports = {
     borrowBook, returnBook

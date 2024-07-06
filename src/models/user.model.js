@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema;
 
 const usersSchema = new mongoose.Schema({
     firstName: {
@@ -23,9 +22,9 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    books: [
+    borrowedBooks: [
         {
-            type: ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "Book",
         }
     ],

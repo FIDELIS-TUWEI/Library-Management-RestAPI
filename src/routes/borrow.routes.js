@@ -6,7 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/:bookId", protectMe, validateBorrow, borrowBook);
-router.post("/:bookId", protectMe, returnBook);
+router.put("/:bookId/returns", protectMe, returnBook);
 
 
 module.exports = router;
