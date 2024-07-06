@@ -30,8 +30,9 @@ const borrowBook = asyncHandler(async (req, res) => {
         return res.status(400).json({ status: 'error', message: 'Book is not available for borrowing' });
     }
 
-    // Update book availability and user's borrowedBooks
-    book.available = false;
+    // Update book quantity and availability
+    book.quantity -= 1;
+    book.available = book.quantity > 0;
     await book.save();
 
     const user = await User.findById(userId);
@@ -66,7 +67,8 @@ const returnBook = asyncHandler(async (req, res) => {
         return res.status(404).json({ status: 'error', message: 'Book not found or not borrowed by the user' });
     }
 
-    // Update book availability and user's borrowedBooks
+    // Update book quantity and availability
+    book.quantity += 1;
     book.available = true;
     await book.save();
 
