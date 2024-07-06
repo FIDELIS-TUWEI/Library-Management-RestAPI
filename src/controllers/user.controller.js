@@ -45,7 +45,7 @@ const updateUser = asyncHandler (async (req, res) => {
     try {
         const { userId } = req.params;
 
-        const updatedUser = await User.findByIdAndUpdate(userId, req.body, { new: true, runValidators });
+        const updatedUser = await User.findByIdAndUpdate(userId, req.body, { new: true, runValidators: true });
 
         if (!updatedUser) {
             return res.status(404).json({
@@ -75,7 +75,7 @@ const changePassword = asyncHandler (async (req, res) => {
     
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
-        const updateUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, { new: true });
+        const updateUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, { new: true, runValidators: true });
 
         res.status(200).json({
             status: "success",
