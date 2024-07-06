@@ -41,28 +41,43 @@ const getUserById = asyncHandler (async (req, res) => {
 });
 
 // @desc update user by ID
-const updateUser = asyncHandler (async (req, res) => {
+const updateUser = asyncHandler(async (req, res) => {
     try {
         const { userId } = req.params;
+        const updateData = { ...req.body };
 
-        const updatedUser = await User.findByIdAndUpdate(userId, req.body, { new: true, runValidators: true }).select("-password");
+        if ('role' in updateData) {
+            if (req.user.role !== 'Admin') {
+                delete updateData.role;
+                return res.status(403).json({
+                    status: "error",
+                    message: "Only Admin users can update roles."
+                });
+            }
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId, 
+            updateData, 
+            { new: true, runValidators: true }
+        ).select("-password");
 
         if (!updatedUser) {
             return res.status(404).json({
                 status: "error",
                 message: `User with Id: ${userId} not found.`
             });
-        };
+        }
 
-        return res.status(200).json({ 
+        return res.status(200).json({
             status: "success",
             message: "User updated successfully",
-            data: updatedUser 
+            data: updatedUser
         });
 
     } catch (error) {
         logger.error("Error in updateUser controller", error);
-        return res.status(500).json({ status: "error", message: error.message || "Internal Server Error" })
+        return res.status(500).json({ status: "error", message: error.message || "Internal Server Error" });
     }
 });
 
