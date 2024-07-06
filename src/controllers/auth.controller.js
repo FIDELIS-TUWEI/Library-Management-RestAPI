@@ -33,6 +33,9 @@ const signup = asyncHandler (async (req, res) => {
         // save user to db
         await user.save();
 
+        // generate token as cookie
+        generateTokenAsCookie(user._id, res);
+
         res.status(201).json({
             status: "success",
             message: "User registration successful",
