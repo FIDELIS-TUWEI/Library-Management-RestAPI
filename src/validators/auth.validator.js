@@ -28,7 +28,7 @@ const validator = (validationSchema) => async (req, res, next) => {
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
         .required(),
     phone: joi.number().required(),
-    password: joi.pattern(regExp('^[a-zA-Z0-9]{3,30}$')).required(),
+    password: joi.string().required(),
     dateOfBirth: joi.date().optional(),
     profilePic: joi.string().optional(),
     books: joi.array().items(joi.string().regex(/^[0-9a-fA-F]{24}$/)).optional(),
