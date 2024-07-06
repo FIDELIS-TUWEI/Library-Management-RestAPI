@@ -2,8 +2,9 @@ require("dotenv").config();
 
 let PORT = process.env.PORT;
 let MONGODB_URI = process.env.MONGODB_URI;
-let NODE_ENV = process.env.NODE_ENV
+let NODE_ENV = process.env.NODE_ENV;
+let JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = {
-    PORT, MONGODB_URI, NODE_ENV
+    PORT, MONGODB_URI, NODE_ENV, JWT_SECRET
 };
