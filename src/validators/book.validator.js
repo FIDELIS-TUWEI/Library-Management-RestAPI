@@ -7,7 +7,6 @@ const bookSchema = joi.object({
     genre: joi.string().min(3).max(50).required(),
     quantity: joi.number().min(0).required(),
     available: joi.boolean().optional(),
-    coverImage: joi.string.optional(),
 });
 
 const validateBook = validator(bookSchema);

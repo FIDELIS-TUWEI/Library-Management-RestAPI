@@ -4,6 +4,7 @@ const bookSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
+        unique: true,
     },
     author: {
         type: String,
@@ -25,10 +26,7 @@ const bookSchema = new mongoose.Schema({
     available: {
         type: Boolean,
         default: true
-    },
-    coverImage: {
-        type: String,
-    },
+    }
 },
 { timestamps: { createdAt: "Date_created", updatedAt: "Date_updated" } },
 );
