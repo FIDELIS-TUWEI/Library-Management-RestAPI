@@ -23,18 +23,17 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    dateOfBirth: {
-        type: Date,
-    },
-    profilePic: {
-        type: String,
-    },
     books: [
         {
             type: ObjectId,
-            ref: "Library",
+            ref: "Book",
         }
-    ]
+    ],
+    role: {
+        type: String,
+        enum: ["Librarian", "User", "Admin"],
+        default: "User",
+    }
 },
 { timestamps: { createdAt: "Date_created", updatedAt: "Date_updated" } },
 );
