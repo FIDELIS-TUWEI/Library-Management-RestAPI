@@ -30,7 +30,7 @@ const getUserById = asyncHandler (async (req, res) => {
 
         res.status(200).json({
             status: "success",
-            message: "User by ID fetched successfully",
+            message: `User by first name: ${user.firstName} fetched successfully`,
             data: user
         });
 
@@ -71,7 +71,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
         return res.status(200).json({
             status: "success",
-            message: "User updated successfully",
+            message: `User with first name: ${updatedUser.firstName} updated successfully`,
             data: updatedUser
         });
 

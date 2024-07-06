@@ -96,7 +96,7 @@ const getBookByID = asyncHandler (async (req, res) => {
 
         res.status(200).json({
             status: "success",
-            message: `Book with ID: ${bookId} fetched successfully.`,
+            message: `Book with Title: ${book.title} fetched successfully.`,
             data: book
         });
 
@@ -121,7 +121,7 @@ const updateBook = asyncHandler (async (req, res) => {
 
         res.status(200).json({
             status: "success",
-            message: `Book with ID: ${bookId} updated successfully.`,
+            message: `Book with Title: ${updatedBook.title} updated successfully.`,
             data: updatedBook
         });
 
@@ -146,7 +146,7 @@ const deleteBook = asyncHandler (async (req, res) => {
 
         res.status(200).json({
             status: "success",
-            message: "Book removed from your library successfully"
+            message: `Book with Title: ${removeBook.title} removed from your library successfully`
         })
     } catch (error) {
         logger.error("Error on deleteBook controller", error);
