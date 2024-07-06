@@ -19,4 +19,4 @@ COPY ./src ./src
 EXPOSE 5000
 
 # Command to run the application
-CMD ["node", "src/server.js"]
+CMD ["npx", "nodemon", "src/server.js"]

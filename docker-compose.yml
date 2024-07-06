@@ -10,12 +10,13 @@ services:
     environment:
       - NODE_ENV=development
       - MONGODB_URI=mongodb://mongo:27017/librarydb
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - mongo
     volumes:
       - ./src:/app/src
       - ./.env:/app/.env
-    
+          
   mongo:
     image: mongo:latest
     ports:
